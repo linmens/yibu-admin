@@ -3,7 +3,7 @@
 		install: function(Vue) {
 			Vue.prototype.$editable = function(e,callback) {
 				var target=e.target,value=target.innerText;
-				target.innerHTML = "<Input class='ivu-input' v-model='va' value='" + value + "' id='_editable' style='font-size:13px;color:red;text-align:center'></Input>";
+				target.innerHTML = "<Input class='ivu-input'  value='" + value + "' id='_editable' style='font-size:13px;color:red;text-align:center'></Input>";
 				var input = document.getElementById('_editable');
 				input.focus();
 				var len = input.value.length;

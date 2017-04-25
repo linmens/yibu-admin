@@ -1,6 +1,6 @@
 <template>
 <div class="realtive">
-  <Table :columns="columns1" :data="data1" @on-row-click="isonrow" height="400" class="cDataTable">
+  <Table :columns="columns1" :data="data1" @on-row-click="isonrow"  class="cDataTable">
 
   </Table>
   <Page :total="pagetotal" :current="page" @on-change="changePage"></Page>
@@ -60,7 +60,7 @@ export default {
           key: 'pic_url',
           render(row, column, index) {
             return `
-            <span @click="editable($event,'pic_url',row)">{{row.pic_url}}</span>
+            <div @click="editable($event,'pic_url',row)">{{row.pic_url||'空'}}</div>
             `
           }
         }, {
@@ -136,8 +136,9 @@ export default {
           values: value
         }).then(res => {
           console.log(res);
-          this.data1 = res.body.goods_list;
-          this.pagetotal = res.body.num
+          // this.data1 = res.body.goods_list;
+          // this.pagetotal = res.body.num
+           that.$Message.success('更新成功!');
         }, res => {
           // error callback
         })

@@ -1,7 +1,7 @@
 <template>
 <div class="realtive">
+  <input type="text" placeholder="搜索..." class="ivu-select-input" v-model="search">
   <Table :columns="columns1" :data="data1" @on-row-click="isonrow"  class="cDataTable">
-
   </Table>
   <Page :total="pagetotal" :current="page" @on-change="changePage"></Page>
   <div class="fix_sumbit">
@@ -45,6 +45,7 @@ export default {
       self: this,
       pagetotal: 0,
       page: 1,
+      search:'',
       Aftersale: "",
       targetId: 1,
       rowEdit: [],
@@ -54,15 +55,21 @@ export default {
           align: 'center'
         }, {
           title: '货号',
-          key: 'outer_id_ds'
+          key: 'outer_id_ds',
+          sortable: true
         }, {
+          title: '颜色',
+          key: 'goods_color_gs',
+          sortable: true
+        },{
           title: '主图url',
           key: 'pic_url',
           render(row, column, index) {
             return `
             <div @click="editable($event,'pic_url',row)">{{row.pic_url||'空'}}</div>
             `
-          }
+          },
+          sortable: true
         }, {
           title: '闪购价',
           key: 'goods_price_ump_yhd_sg',
@@ -72,7 +79,8 @@ export default {
             <span @click="editable($event,'goods_price_ump_yhd_sg',row)">{{row.goods_price_ump_yhd_sg}}</span>
 
             `
-          }
+          },
+          sortable: true
         }, {
           title: '上架时间',
           key: 'time_goods_onlist',
@@ -80,7 +88,8 @@ export default {
             return `
             <span @click="editable($event,'time_goods_onlist',row)">{{row.time_goods_onlist}}</span>
             `
-          }
+          },
+          sortable: true
         },
         {
           title: '拍摄时间',
@@ -89,7 +98,8 @@ export default {
             return `
             <span @click="editable($event,'time_goods_paishe',row)">{{row.time_goods_paishe}}</span>
             `
-          }
+          },
+          sortable: true
         }, {
           title: '操作',
           key: 'action',
@@ -113,6 +123,9 @@ export default {
   },
   watch: {
     // 如果 question 发生改变，这个函数就会运行
+    search:function(){
+      this.senDChange()
+    },
     rowEdit: function(newQuestion, old) {
       console.log(newQuestion);
     }
@@ -144,9 +157,21 @@ export default {
         })
       });
     },
-    senDChange: _.debounce(function(s) {
-
-    }),
+    senDChange: _.debounce(
+      function(s) {
+      this.$http.post('http://yibu.a10store.com/app/setting/api/goods.info.get.php', {
+        search: this.search
+      }).then(res => {
+        console.log(res);
+        this.data1 = res.body.goods_list;
+        this.pagetotal = res.body.num
+      }, res => {
+        // error callback
+      })
+    },
+    // 这是我们为用户停止输入等待的毫秒数
+          500
+  ),
     changeyhd(i) {
       this.targetId = i
       console.log(this.targetId);

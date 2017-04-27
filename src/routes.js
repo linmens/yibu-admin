@@ -5,6 +5,8 @@ import Page4 from './page/nav2/Page4.vue'
 import Page5 from './page/nav2/Page5.vue'
 import Login from './page/login.vue'
 import Main from './page/Main.vue'
+import Yinxiao from './page/yingxiao/execl.vue'
+
 let routes = [
 
     {
@@ -54,6 +56,25 @@ let routes = [
                 requireAuth: true,
             },
             name: '商品信息维护'
+        }]
+    },
+    {
+        path: '/',
+        component: Home,
+        name: '营销中心',
+        meta: {
+            // 添加该字段，表示进入这个路由是需要登录的
+            requireAuth: true,
+        },
+        iconCls: 'el-icon-message', //图标样式class
+        children: [{
+            path: '/yingxiao',
+            component: Yinxiao,
+            meta: {
+                // 添加该字段，表示进入这个路由是需要登录的
+                requireAuth: true,
+            },
+            name: '导出数据'
         }]
     },
     {

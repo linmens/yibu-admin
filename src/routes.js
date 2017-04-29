@@ -6,7 +6,7 @@ import Page5 from './page/nav2/Page5.vue'
 import Login from './page/login.vue'
 import Main from './page/Main.vue'
 import Yinxiao from './page/yingxiao/execl.vue'
-
+import Gongju from './page/all/gongju.vue'
 let routes = [
 
     {
@@ -17,7 +17,7 @@ let routes = [
             // 添加该字段，表示进入这个路由是需要登录的
             requireAuth: true,
         },
-        iconCls: 'el-icon-message', //图标样式class
+        iconCls: 'person-stalker', //图标样式class
         children: [{
                 path: '/jixiao',
                 component: Jixiao,
@@ -47,7 +47,7 @@ let routes = [
             // 添加该字段，表示进入这个路由是需要登录的
             requireAuth: true,
         },
-        iconCls: 'el-icon-message', //图标样式class
+        iconCls: 'ios-box-outline', //图标样式class
         children: [{
             path: '/goods',
             component: Goods,
@@ -63,10 +63,10 @@ let routes = [
         component: Home,
         name: '营销中心',
         meta: {
-            // 添加该字段，表示进入这个路由是需要登录的
+            // 添加该字段，表示进入这个路由是需要登录的<Icon type=""></Icon>
             requireAuth: true,
         },
-        iconCls: 'el-icon-message', //图标样式class
+        iconCls: 'ios-pricetags-outline', //图标样式class
         children: [{
             path: '/yingxiao',
             component: Yinxiao,
@@ -78,8 +78,28 @@ let routes = [
         }]
     },
     {
+        path: '/',
+        component: Home,
+        name: '所有工具',
+        meta: {
+            // 添加该字段，表示进入这个路由是需要登录的
+            requireAuth: true,
+        },
+        iconCls: 'android-arrow-back', //图标样式class
+        children: [{
+            path: '/all',
+            component: Gongju,
+            meta: {
+                // 添加该字段，表示进入这个路由是需要登录的
+                requireAuth: true,
+            },
+            name: '录入数据'
+        }]
+    },
+    {
         path: '/login',
-        component: Login
+        component: Login,
+          hidden: true
     },
 
 ]

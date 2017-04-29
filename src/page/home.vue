@@ -84,6 +84,7 @@
 }
 
 
+
 /** layui-v1.0.9_rls MIT License By http://www.layui.com */
 
 html #layuicss-skinlayimcss {
@@ -1283,16 +1284,15 @@ body .layui-layim-contextmenu .layui-layer-content {
 
   <Row type="flex">
     <i-col span="5" class="layout-menu-left">
-      <Menu :active-name="$route.name" router theme="dark" width="auto" :open-names="['0','1']">
+      <Menu :active-name="$route.name" router theme="dark" width="auto" :open-names="open">
         <div class="layout-logo-left"></div>
-        <Submenu :name="index+ ''" v-for="(item,index) in $router.options.routes">
+        <Submenu :name="index+ ''" v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
           <template slot="title">
-                          <Icon type="ios-navigate"></Icon>
+                          <Icon :type="item.iconCls"></Icon>
                           {{item.name}}
 </template>
                       <router-link active-class="ivu-menu-item-active ivu-menu-item-selected" :name="child.name" tag="li" v-for="child in item.children"    :to="child.path" class="ivu-menu-item" >{{child.name}}</router-link>
                   </Submenu>
-
               </Menu>
           </i-col>
           <i-col span="19" class="realtive">
@@ -1363,6 +1363,7 @@ export default {
   },
   data() {
     return {
+      open:['0','1','2','3'],
       // note: changing this line won't causes changes
       // with hot-reload because the reloaded component
       // preserves its current state and we are modifying
@@ -1376,7 +1377,8 @@ export default {
   mounted() {
     // this.username = this.$cookie.get('username');
     CHAT.init()
-    console.log(this)
+    // this.open = [''+this.$route.path]
+      console.log(this.open)
   }
 }
 </script>

@@ -7,6 +7,8 @@ import Login from './page/login.vue'
 import Main from './page/Main.vue'
 import Yinxiao from './page/yingxiao/execl.vue'
 import Gongju from './page/all/gongju.vue'
+import Skus from './page/goods/skus.vue'
+
 let routes = [
 
     {
@@ -56,7 +58,17 @@ let routes = [
                 requireAuth: true,
             },
             name: '商品信息维护'
-        }]
+        },
+        {
+            path: '/sku',
+            component: Skus,
+            meta: {
+                // 添加该字段，表示进入这个路由是需要登录的
+                requireAuth: true,
+            },
+            name: 'sku信息维护'
+        }
+      ]
     },
     {
         path: '/',
